@@ -59,15 +59,17 @@
 - End-to-end napplet-to-plaintext-DM delivery through a live port (each stage was verified separately).
 - Whether typical apps auto-answer NIP-42 on their pool, which would escalate K4.
 
-## Proposed upstream work
+## Proposed upstream work — status (updated 2026-11-12)
 
-| Proposal | Type | Why this shape |
+| Proposal | Type | Status |
 |---|---|---|
-| Fix the Kehto ready handshake (K3) and add the browser suite to CI | PR | Clear bug with a pass/fail oracle (12/12 browser tests) |
-| `loadAttachment` size cap plus active-MIME guard (A1, A2) | PR | Small, additive (`maxSize` option, defang `text/html`/SVG) |
-| `GiftWrapReceiver.restore` quarantines invalid rows instead of throwing (M1) | PR | Small, contained |
-| NDR `removeMember` waits for the group manager or throws (M5) | PR | One-line class of fix |
-| Kehto fail-closed defaults for signing and decryption, plus relay-hint validation (K1, K2, K4) | Issue first | Changes documented default behavior; the maintainer should choose the migration path |
+| Fix the Kehto ready handshake (K3) + browser suite in CI | — | **Fixed upstream** in 3a976991 (verified: browser suite 23/23 on master) |
+| `loadAttachment` size cap + active-MIME guard (A1, A2) | PR | **#111 MERGED**, released in 7.2.0 |
+| `GiftWrapReceiver.restore` quarantine (M1) | PR | **#109 MERGED**, released in 7.2.0 |
+| NDR `removeMember` waits for group manager (M5) | PR | **#110 OPEN** — maintainer traced the flow and disputes reachability; reworded to immediacy-only, awaiting decision |
+| Kehto fail-closed defaults (K1, K2, K4) | Issue + PR | Signing fail-closed **fixed upstream** (e466d74f, refs [#112](https://github.com/hzrd149/applesauce/issues/112)); decryption opt-in + relay-hint gate in **#119 MERGED** (120788b); the `m.relay` runtime path is tracked in kehto/web[#435](https://github.com/kehto/web/issues/435) |
+| M2/M3 checkpoint + cache binding | Issue | Design posted on [#114](https://github.com/hzrd149/applesauce/issues/114): device-local HMAC key, tagged checkpoint rows, ciphertext-hash-bound cache entries; awaiting go-ahead |
+| Resource service hardening (K5) | — | **Fixed upstream** in e40eadc4 (HTTPS-required fetchServer, expanded host regex incl. CGNAT/`.localhost`, `redirect: "error"`, `allowHost` hook) |
 
 ## Upstream status (2026-11-09)
 
